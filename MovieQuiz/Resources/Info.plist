@@ -4,16 +4,15 @@
 <dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
-        <key>UIAppFonts</key>
-             <array>
-                  <string>YS Display-Bold</string>
-                  <string>YS Display-Medium</string>
-             </array>
+		<key>UIAppFonts</key>
+		<array>
+			<string>YS Display-Bold</string>
+			<string>YS Display-Medium</string>
+		</array>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 		<key>UISceneConfigurations</key>
 		<dict>
-            
 			<key>UIWindowSceneSessionRoleApplication</key>
 			<array>
 				<dict>
@@ -27,5 +26,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
