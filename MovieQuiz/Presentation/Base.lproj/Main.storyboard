@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="YS Display-Bold.ttf">
+            <string>YSDisplay-Bold</string>
+        </array>
         <array key="YS Display-Medium.ttf">
             <string>YSDisplay-Medium</string>
         </array>
@@ -49,19 +52,12 @@
                                             <constraint firstAttribute="width" secondItem="bxa-nh-wfS" secondAttribute="height" multiplier="2:3" id="w9Y-hB-Kxm"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFj-Fe-bLv" userLabel="Question Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFj-Fe-bLv" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="99.5"/>
-                                        <attributedString key="attributedText">
-                                            <fragment>
-                                                <string key="content">Рейтинг этого фильма 
+                                        <string key="text">Рейтинг этого фильма 
 меньше чем 5?</string>
-                                                <attributes>
-                                                    <color key="NSColor" name="YP White"/>
-                                                    <font key="NSFont" size="23" name="YSDisplay-Bold"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
+                                        <color key="textColor" name="YP White"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4cP-Wz-UvX">
@@ -121,14 +117,13 @@
                             <constraint firstItem="Vrb-BX-Bh2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="o5G-NT-kpo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vrb-BX-Bh2" secondAttribute="trailing" constant="20" id="yM1-d2-fot"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="counterLabel" destination="lha-PY-KSF" id="aEM-ZP-joU"/>
                         <outlet property="imageView" destination="bxa-nh-wfS" id="Vze-qm-f6O"/>
+                        <outlet property="noButton" destination="qOL-rJ-1U5" id="gqI-tz-tWT"/>
                         <outlet property="textLabel" destination="UFj-Fe-bLv" id="79I-h2-5vw"/>
+                        <outlet property="yesButton" destination="0a8-jl-cVq" id="owB-x7-IKo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
