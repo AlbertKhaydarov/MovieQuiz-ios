@@ -7,6 +7,13 @@
 
 import Foundation
 class QuestionFactory: QuestionFactoryProtocol {
+
+    weak var delegate: QuestionFactoryDelegate?
+    
+    init(delegate: QuestionFactoryDelegate) {
+        self.delegate = delegate
+    }
+    
     // Mock-данные
     private let questions: [QuizQuestion] = [
         QuizQuestion(imageOfFilm: "The Godfather",
