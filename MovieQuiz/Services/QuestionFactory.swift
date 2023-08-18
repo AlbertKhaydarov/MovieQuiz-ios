@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class QuestionFactory {
+class QuestionFactory: QuestionFactoryProtocol {
     // Mock-данные
     private let questions: [QuizQuestion] = [
         QuizQuestion(imageOfFilm: "The Godfather",
