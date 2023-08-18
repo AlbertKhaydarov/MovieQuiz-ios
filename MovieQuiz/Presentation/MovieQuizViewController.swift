@@ -11,39 +11,6 @@ final class MovieQuizViewController: UIViewController {
     
     @IBOutlet weak var yesButton: UIButton!
     
-    // Mock-данные
-    private let questions: [QuizQuestion] = [
-        QuizQuestion(imageOfFilm: "The Godfather",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "The Dark Knight",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "Kill Bill",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "The Avengers",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "Deadpool",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "The Green Knight",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: true),
-        QuizQuestion(imageOfFilm: "Old",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: false),
-        QuizQuestion(imageOfFilm: "The Ice Age Adventures of Buck Wild",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: false),
-        QuizQuestion(imageOfFilm: "Tesla",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: false),
-        QuizQuestion(imageOfFilm: "Vivarium",
-                     questionText: "Рейтинг этого фильма\n больше чем 6?",
-                     correctAnswer: false)]
-    
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     
@@ -73,8 +40,10 @@ final class MovieQuizViewController: UIViewController {
         let alert = UIAlertController(title: result.alertTitle,
                                       message: result.resultText,
                                       preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: result.alertButtonText, style: .default) { _ in
+       
+        let action = UIAlertAction(title: result.alertButtonText, style: .default) { [weak self] _ in
+            guard let self = self else {return}
+            
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
@@ -115,7 +84,8 @@ final class MovieQuizViewController: UIViewController {
         
         noButton.isEnabled = false
         yesButton.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else {return}
             self.showNextQuestionOrResults()
         }
     }
