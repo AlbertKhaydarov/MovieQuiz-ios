@@ -11,9 +11,5 @@ struct AlertModel {
     let title: String
     let message: String
     let buttonText: String
-    var alertButtonAction: () -> Void
-    
-    func onAlertButtonTapped(completion: @escaping() -> Void){
-        completion()
-    }
+    let alertButtonAction: () -> Void
 }

@@ -15,7 +15,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionsAmount: Int = 2
+    private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
@@ -55,10 +55,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             let alertModel = AlertModel(
                 title: "Этот раунд окончен!",
                 message: text,
-                buttonText: "Сыграть еще раз") { [weak self] in
-                    guard let self = self else {return}
-                    alertPresenter?.showAlert(quiz: alertModel, on: self)
-                }
+                buttonText: "Сыграть еще раз")
+            {
+                self.questionFactory?.requestNextQuestion()
+            }
+            alertPresenter?.showAlert(quiz: alertModel, on: self)
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
@@ -123,8 +124,5 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     func finishShowAlert() {
         self.currentQuestionIndex = 0
         self.correctAnswers = 0
-        
-        questionFactory?.requestNextQuestion()
     }
-    
 }

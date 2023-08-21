@@ -22,10 +22,8 @@ class AlertPresenter: AlertPresenterProtocol {
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: alertNotes.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}
+            alertNotes.alertButtonAction()
             self.delegate?.finishShowAlert()
-            //            alertNotes.onAlertButtonTapped {
-            //                self.delegate?.finishShowAlert()
-            //            }
         }
         
         alert.addAction(action)
