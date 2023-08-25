@@ -15,8 +15,7 @@ class AlertPresenter: AlertPresenterProtocol {
     init(delegate: AlertPresenterDelegate?) {
         self.delegate = delegate
     }
-    
-    func showAlert(quiz alertNotes: AlertModel, on viewController: UIViewController) {
+    func showAlert(alertNotes: AlertModel, on viewController: UIViewController) {
         let alert = UIAlertController(title: alertNotes.title,
                                       message: alertNotes.message,
                                       preferredStyle: .alert)
@@ -30,4 +29,19 @@ class AlertPresenter: AlertPresenterProtocol {
         
         viewController.present(alert, animated: true, completion: nil)
     }
+    
+//    func showAlert(quiz alertNotes: AlertModel, on viewController: UIViewController) {
+//        let alert = UIAlertController(title: alertNotes.title,
+//                                      message: alertNotes.message,
+//                                      preferredStyle: .alert)
+//        let action = UIAlertAction(title: alertNotes.buttonText, style: .default) { [weak self] _ in
+//            guard let self = self else {return}
+//            alertNotes.alertButtonAction()
+//            self.delegate?.finishShowAlert()
+//        }
+//
+//        alert.addAction(action)
+//
+//        viewController.present(alert, animated: true, completion: nil)
+//    }
 }

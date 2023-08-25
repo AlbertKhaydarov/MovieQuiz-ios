@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol AlertPresenterProtocol {
-    func showAlert(quiz alertNotes: AlertModel, on: UIViewController)
+    func showAlert(alertNotes: AlertModel, on: UIViewController)
 }

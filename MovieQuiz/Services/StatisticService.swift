@@ -15,25 +15,42 @@ protocol StatisticService {
 }
 
 final class StatisticServiceImplementation: StatisticService {
-   
+    
     private enum Keys: String {
         case correct, total, bestGame, gamesCount
     }
     
+    private var privateTotalAccuracy: Double = 0
+    private var privateGamesCount: Int = 0
     private let userDefaults = UserDefaults.standard
-        
-    var totalAccuracy: Double
     
-    var gamesCount: Int
+    var totalAccuracy: Double {
+        get {
+            return privateTotalAccuracy
+        }
+        set {
+            privateTotalAccuracy = newValue / Double(gamesCount)
+        }
+    }
+    
+    var gamesCount: Int {
+        get {
+            return privateGamesCount
+        }
+        set {
+            let count = 
+            privateGamesCount = newValue
+        }
+    }
     
     var bestGame: GameRecord{
         get {
             guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
-                let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
+                  let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
                 return .init(correct: 0, total: 0, date: Date())
             }
             return record
-        }        
+        }
         set {
             guard let data = try? JSONEncoder().encode(newValue) else {
                 print("Невозможно сохранить результат")
@@ -44,9 +61,13 @@ final class StatisticServiceImplementation: StatisticService {
     }
     
     func store(correct count: Int, total amount: Int) {
+        let record = GameRecord(correct: count, total: amount, date: Date())
         
+        let bestRecord = bestGame
+        
+        if bestRecord < record {
+            print("true")
+        }
     }
-    
 }
-
 

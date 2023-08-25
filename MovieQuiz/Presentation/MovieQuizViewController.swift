@@ -15,10 +15,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionsAmount: Int = 10
+    private let questionsAmount: Int = 2
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
+    private var statisticServiceImplementation: StatisticService?
+    private var statisticData: GameRecord? = 0
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -28,6 +30,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         questionFactory?.requestNextQuestion()
         
         alertPresenter = AlertPresenter(delegate: self)
+        
+        statisticServiceImplementation = StatisticServiceImplementation()
         
         setupBorder(cornerRadius: 20, borderWidth: 0)
     }
@@ -47,40 +51,45 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     // MARK: - Private functions
     
-    private func show(quiz result: QuizResultsViewModel) {
-            let alert = UIAlertController(title: result.alertTitle,
-                                          message: result.resultText,
-                                          preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: result.alertButtonText, style: .default) { _ in
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                
-                self.questionFactory?.requestNextQuestion() 
-            }
-            
-            alert.addAction(action)
-            
-            self.present(alert, animated: true, completion: nil)
+//    private func show(quiz result: QuizResultsViewModel) {
+    private func show(alertNotes: AlertModel, quiz result: QuizResultsViewModel) {
+          
+        alertPresenter?.showAlert(alertNotes: alertNotes, on: self)
+
         }
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте еще раз!"         
+            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте еще раз!"
+            
+            let statisticText = """
+                    Ваш результат: \(correctAnswers)/\(questionsAmount)
+                    Количество сыгранных квизов: 1
+                    Рекорд: 6/10 (03.07.22 03:22)
+                    Средняя точность: 60.00%
+                    """
+
+            let viewModel = QuizResultsViewModel(
+                alertTitle: "Этот раунд окончен!",
+                resultText: text,
+                alertButtonText: "Сыграть еще раз")
             
             let alertModel = AlertModel(
                 title: "Этот раунд окончен!",
-                message: text,
+                message: statisticText,
                 buttonText: "Сыграть еще раз")
             {
                 self.questionFactory?.requestNextQuestion()
             }
-            alertPresenter?.showAlert(quiz: alertModel, on: self)
+            show(alertNotes: alertModel, quiz: viewModel)
+            statisticData += 1
+            
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
+
         }
     }
     
