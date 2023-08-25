@@ -46,11 +46,29 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
     
     // MARK: - Private functions
+    
+    private func show(quiz result: QuizResultsViewModel) {
+            let alert = UIAlertController(title: result.alertTitle,
+                                          message: result.resultText,
+                                          preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: result.alertButtonText, style: .default) { _ in
+                self.currentQuestionIndex = 0
+                self.correctAnswers = 0
+                
+                self.questionFactory?.requestNextQuestion() 
+            }
+            
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте еще раз!"
+            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте еще раз!"         
             
             let alertModel = AlertModel(
                 title: "Этот раунд окончен!",
