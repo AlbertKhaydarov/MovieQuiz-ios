@@ -11,7 +11,7 @@ protocol StatisticService {
     func store(correct count: Int, total amount: Int)
     var totalAccuracy: Double { get }
     var gamesCount: Int { get }
-    var bestGame: GameRecord { get } 
+    var bestGame: GameRecord { get }
 }
 
 final class StatisticServiceImplementation: StatisticService {
@@ -20,26 +20,22 @@ final class StatisticServiceImplementation: StatisticService {
         case correct, total, bestGame, gamesCount
     }
     
-    private var privateTotalAccuracy: Double = 0
-    private var privateGamesCount: Int = 0
     private let userDefaults = UserDefaults.standard
     
     var totalAccuracy: Double {
         get {
-            return privateTotalAccuracy
-        }
-        set {
-            privateTotalAccuracy = newValue / Double(gamesCount)
+            let correct = userDefaults.integer(forKey: Keys.correct.rawValue)
+            let total = userDefaults.integer(forKey: Keys.total.rawValue)
+            return Double(correct) / Double(total) * 100.0
         }
     }
     
     var gamesCount: Int {
         get {
-            return privateGamesCount
+            return userDefaults.integer(forKey: Keys.gamesCount.rawValue)
         }
         set {
-            let count = 
-            privateGamesCount = newValue
+            userDefaults.set(newValue, forKey: Keys.gamesCount.rawValue)
         }
     }
     
@@ -61,13 +57,22 @@ final class StatisticServiceImplementation: StatisticService {
     }
     
     func store(correct count: Int, total amount: Int) {
+        
         let record = GameRecord(correct: count, total: amount, date: Date())
         
-        let bestRecord = bestGame
-        
-        if bestRecord < record {
-            print("true")
+        if bestGame < record {
+            bestGame = record
         }
+        
+        let storeCorrect = userDefaults.integer(forKey: Keys.correct.rawValue)
+        let correct = storeCorrect + count
+        userDefaults.set(correct, forKey: Keys.correct.rawValue)
+        
+        let storeTotal = userDefaults.integer(forKey: Keys.total.rawValue)
+        let total = storeTotal + amount
+        userDefaults.set(total, forKey: Keys.total.rawValue)
+        
+        gamesCount += 1
     }
 }
 

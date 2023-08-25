@@ -15,12 +15,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionsAmount: Int = 2
+    private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
     private var statisticServiceImplementation: StatisticService?
-    private var statisticData: GameRecord? = 0
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -51,45 +50,35 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     // MARK: - Private functions
     
-//    private func show(quiz result: QuizResultsViewModel) {
-    private func show(alertNotes: AlertModel, quiz result: QuizResultsViewModel) {
-          
+    private func show(alertNotes: AlertModel) {
         alertPresenter?.showAlert(alertNotes: alertNotes, on: self)
-
-        }
+    }
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
-            let text = correctAnswers == questionsAmount ?
-            "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте еще раз!"
+            statisticServiceImplementation?.store(correct: correctAnswers, total: questionsAmount)
+            guard let gamesCount = statisticServiceImplementation?.gamesCount else{return}
+            guard let bestgames = statisticServiceImplementation?.bestGame else{return}
+            guard let totalAccuracy = statisticServiceImplementation?.totalAccuracy else{return}
             
-            let statisticText = """
+            let text = """
                     Ваш результат: \(correctAnswers)/\(questionsAmount)
-                    Количество сыгранных квизов: 1
-                    Рекорд: 6/10 (03.07.22 03:22)
-                    Средняя точность: 60.00%
+                    Количество сыгранных квизов: \(gamesCount)
+                    Рекорд: \(bestgames.correct)/\(bestgames.total) (\(bestgames.date.dateTimeString))
+                    Средняя точность: \(String(format: "%.2f", totalAccuracy))%
                     """
-
-            let viewModel = QuizResultsViewModel(
-                alertTitle: "Этот раунд окончен!",
-                resultText: text,
-                alertButtonText: "Сыграть еще раз")
             
             let alertModel = AlertModel(
                 title: "Этот раунд окончен!",
-                message: statisticText,
+                message: text,
                 buttonText: "Сыграть еще раз")
             {
                 self.questionFactory?.requestNextQuestion()
             }
-            show(alertNotes: alertModel, quiz: viewModel)
-            statisticData += 1
-            
+            show(alertNotes: alertModel)
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
-
         }
     }
     
