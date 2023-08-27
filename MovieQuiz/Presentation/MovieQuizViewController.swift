@@ -19,7 +19,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
-    private var statisticServiceImplementation: StatisticService?
+    private var statisticServiceImplementation: StatisticServiceProtocol?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
