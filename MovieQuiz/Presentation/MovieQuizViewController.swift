@@ -19,7 +19,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
-    private var statisticServiceImplementation: StatisticServiceProtocol?
+    private var statisticService: StatisticServiceProtocol?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         
         alertPresenter = AlertPresenter(delegate: self)
         
-        statisticServiceImplementation = StatisticServiceImplementation()
+        statisticService = StatisticServiceImplementation()
         
         setupBorder(cornerRadius: 20, borderWidth: 0)
     }
@@ -56,10 +56,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
-            statisticServiceImplementation?.store(correct: correctAnswers, total: questionsAmount)
-            guard let gamesCount = statisticServiceImplementation?.gamesCount else{return}
-            guard let bestgames = statisticServiceImplementation?.bestGame else{return}
-            guard let totalAccuracy = statisticServiceImplementation?.totalAccuracy else{return}
+            statisticService?.store(correct: correctAnswers, total: questionsAmount)
+            guard let gamesCount = statisticService?.gamesCount else{return}
+            guard let bestgames = statisticService?.bestGame else{return}
+            guard let totalAccuracy = statisticService?.totalAccuracy else{return}
             
             let text = """
                     Ваш результат: \(correctAnswers)/\(questionsAmount)
