@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-class AlertPresenter: AlertPresenterProtocol {
+class ResultAlertPresenter: ResultAlertPresenterProtocol {
     
-    weak var delegate: AlertPresenterDelegate?
+    weak var delegate: ResultAlertPresenterDelegate?
     
-    init(delegate: AlertPresenterDelegate?) {
+    init(delegate: ResultAlertPresenterDelegate?) {
         self.delegate = delegate
     }
     
-    func showAlert(alertMessages: AlertModel, on viewController: UIViewController) {
+    func showAlert(alertMessages: ResultAlertModel, on viewController: UIViewController) {
         let alert = UIAlertController(title: alertMessages.title,
                                       message: alertMessages.message,
                                       preferredStyle: .alert)

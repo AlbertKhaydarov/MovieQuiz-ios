@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterDelegate {
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, ResultAlertPresenterDelegate {
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -18,7 +18,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
-    private var alertPresenter: AlertPresenterProtocol?
+    private var alertPresenter: ResultAlertPresenterProtocol?
     private var statisticService: StatisticServiceProtocol?
     
     // MARK: - Lifecycle
@@ -28,7 +28,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         
         questionFactory?.requestNextQuestion()
         
-        alertPresenter = AlertPresenter(delegate: self)
+        alertPresenter = ResultAlertPresenter(delegate: self)
         
         statisticService = StatisticServiceImplementation()
         
@@ -50,7 +50,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     // MARK: - Private functions
     
-    private func show(alertMessages: AlertModel) {
+    private func show(alertMessages: ResultAlertModel) {
         alertPresenter?.showAlert(alertMessages: alertMessages, on: self)
     }
     
@@ -68,7 +68,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                     Средняя точность: \(String(format: "%.2f", totalAccuracy))%
                     """
             
-            let alertModel = AlertModel(
+            let alertModel = ResultAlertModel(
                 title: "Этот раунд окончен!",
                 message: text,
                 buttonText: "Сыграть еще раз")

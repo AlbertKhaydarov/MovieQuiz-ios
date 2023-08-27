@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AlertPresenterDelegate: AnyObject {
+protocol ResultAlertPresenterDelegate: AnyObject {
     func finishShowAlert()
 }

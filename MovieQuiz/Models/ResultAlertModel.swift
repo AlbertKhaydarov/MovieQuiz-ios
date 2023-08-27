@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AlertModel {
+struct ResultAlertModel {
     let title: String
     let message: String
     let buttonText: String
