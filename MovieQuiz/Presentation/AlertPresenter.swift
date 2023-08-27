@@ -16,14 +16,14 @@ class AlertPresenter: AlertPresenterProtocol {
         self.delegate = delegate
     }
     
-    func showAlert(alertNotes: AlertModel, on viewController: UIViewController) {
-        let alert = UIAlertController(title: alertNotes.title,
-                                      message: alertNotes.message,
+    func showAlert(alertMessages: AlertModel, on viewController: UIViewController) {
+        let alert = UIAlertController(title: alertMessages.title,
+                                      message: alertMessages.message,
                                       preferredStyle: .alert)
         
-        let action = UIAlertAction(title: alertNotes.buttonText, style: .default) { [weak self] _ in
+        let action = UIAlertAction(title: alertMessages.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}
-            alertNotes.alertButtonAction()
+            alertMessages.alertButtonAction()
             self.delegate?.finishShowAlert()
         }
         

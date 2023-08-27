@@ -50,8 +50,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     // MARK: - Private functions
     
-    private func show(alertNotes: AlertModel) {
-        alertPresenter?.showAlert(alertNotes: alertNotes, on: self)
+    private func show(alertMessages: AlertModel) {
+        alertPresenter?.showAlert(alertMessages: alertMessages, on: self)
     }
     
     private func showNextQuestionOrResults() {
@@ -75,7 +75,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             {
                 self.questionFactory?.requestNextQuestion()
             }
-            show(alertNotes: alertModel)
+            show(alertMessages: alertModel)
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
