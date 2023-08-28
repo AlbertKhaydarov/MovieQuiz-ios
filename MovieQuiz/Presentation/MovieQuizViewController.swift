@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, ResultAlertPresenterDelegate {
+final class MovieQuizViewController: UIViewController {
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -57,9 +57,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             statisticService?.store(correct: correctAnswers, total: questionsAmount)
-            guard let gamesCount = statisticService?.gamesCount else{return}
-            guard let bestgames = statisticService?.bestGame else{return}
-            guard let totalAccuracy = statisticService?.totalAccuracy else{return}
+            guard let gamesCount = statisticService?.gamesCount else {return}
+            guard let bestgames = statisticService?.bestGame else {return}
+            guard let totalAccuracy = statisticService?.totalAccuracy else {return}
             
             let text = """
                     Ваш результат: \(correctAnswers)/\(questionsAmount)
@@ -76,6 +76,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                 self.questionFactory?.requestNextQuestion()
             }
             show(alertMessages: alertModel)
+            currentQuestionIndex = 0
         } else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
@@ -123,8 +124,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         imageView.layer.cornerRadius = cornerRadius
         imageView.layer.borderWidth = borderWidth
     }
-    
-    // MARK: - QuestionFactoryDelegate
+}
+
+// MARK: - QuestionFactoryDelegate
+extension MovieQuizViewController: QuestionFactoryDelegate {
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {return}
         
@@ -135,10 +138,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             self?.show(quiz: viewModel)
         }
     }
-    
-    // MARK: - AlertPresenterDelegate
+}
+
+// MARK: - AlertPresenterDelegate
+extension MovieQuizViewController: ResultAlertPresenterDelegate {
     func finishShowAlert() {
-        self.currentQuestionIndex = 0
         self.correctAnswers = 0
     }
 }

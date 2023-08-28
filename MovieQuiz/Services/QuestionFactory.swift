@@ -6,9 +6,10 @@
 //
 
 import Foundation
-class QuestionFactory: QuestionFactoryProtocol {
+
+final class QuestionFactory: QuestionFactoryProtocol {
     
-    weak var delegate: QuestionFactoryDelegate?
+    weak private var delegate: QuestionFactoryDelegate?
     
     init(delegate: QuestionFactoryDelegate) {
         self.delegate = delegate
