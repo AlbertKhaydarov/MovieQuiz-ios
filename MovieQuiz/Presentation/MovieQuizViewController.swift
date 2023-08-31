@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController{
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -13,12 +13,15 @@ final class MovieQuizViewController: UIViewController {
     
     @IBOutlet weak var yesButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: ResultAlertPresenterProtocol?
+    private var errorPresenter: ErrorAlertPresenterProtocol?
     private var statisticService: StatisticServiceProtocol?
     
     // MARK: - Lifecycle
@@ -29,6 +32,8 @@ final class MovieQuizViewController: UIViewController {
         questionFactory?.requestNextQuestion()
         
         alertPresenter = ResultAlertPresenter(delegate: self)
+        
+        errorPresenter = ErrorAlertPresenter(delegate: self)
         
         statisticService = StatisticServiceImplementation()
         
@@ -50,8 +55,29 @@ final class MovieQuizViewController: UIViewController {
     
     // MARK: - Private functions
     
-    private func show(alertMessages: ResultAlertModel) {
-        alertPresenter?.showAlert(alertMessages: alertMessages, on: self)
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        let errorModel = ErrorAlertModel(
+            title: "Ошибка",
+            message: message,
+            buttonText: "Попробовать еще раз")
+        {
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+        errorPresenter?.errorShowAlert(errorMessages: errorModel, on: self)
+ 
+    }
+    
+    private func show(resultMessages: ResultAlertModel) {
+        alertPresenter?.showAlert(resultMessages: resultMessages, on: self)
     }
     
     private func showNextQuestionOrResults() {
@@ -75,7 +101,7 @@ final class MovieQuizViewController: UIViewController {
             {
                 self.questionFactory?.requestNextQuestion()
             }
-            show(alertMessages: alertModel)
+            show(resultMessages: alertModel)
             currentQuestionIndex = 0
         } else {
             currentQuestionIndex += 1
@@ -141,8 +167,14 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
 }
 
 // MARK: - AlertPresenterDelegate
-extension MovieQuizViewController: ResultAlertPresenterDelegate {
+extension MovieQuizViewController: ResultAlertPresenterDelegate, ErrorAlertPresenterDelegate  {
+    func errorShowAlert() {
+        //????
+    }
+    
     func finishShowAlert() {
         self.correctAnswers = 0
     }
+    
+    
 }

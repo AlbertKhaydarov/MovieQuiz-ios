@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol ResultAlertPresenterProtocol {
-    func showAlert(alertMessages: ResultAlertModel, on: UIViewController)
+    func showAlert(resultMessages: ResultAlertModel, on: UIViewController)
 }
