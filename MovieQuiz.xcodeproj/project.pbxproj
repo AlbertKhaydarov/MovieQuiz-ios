@@ -17,6 +17,8 @@
 		7CD6A54A2AA0EB42007FFF19 /* ErrorAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD6A5492AA0EB42007FFF19 /* ErrorAlertPresenter.swift */; };
 		7CD6A54C2AA0EB89007FFF19 /* ErrorAlertPresenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD6A54B2AA0EB89007FFF19 /* ErrorAlertPresenterDelegate.swift */; };
 		7CD6A54E2AA0EBFD007FFF19 /* ErrorAlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD6A54D2AA0EBFD007FFF19 /* ErrorAlertPresenterProtocol.swift */; };
+		7CD6A5502AA0EF22007FFF19 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD6A54F2AA0EF22007FFF19 /* NetworkClient.swift */; };
+		7CD6A5522AA0F337007FFF19 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD6A5512AA0F337007FFF19 /* MostPopularMovies.swift */; };
 		840435272A98DAB300F30D2E /* GameRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840435262A98DAB300F30D2E /* GameRecordModel.swift */; };
 		8486E42E2A93B871001B77E8 /* ResultAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486E42D2A93B871001B77E8 /* ResultAlertModel.swift */; };
 		8486E4302A93B96E001B77E8 /* ResultAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486E42F2A93B96E001B77E8 /* ResultAlertPresenter.swift */; };
@@ -48,6 +50,8 @@
 		7CD6A5492AA0EB42007FFF19 /* ErrorAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenter.swift; sourceTree = "<group>"; };
 		7CD6A54B2AA0EB89007FFF19 /* ErrorAlertPresenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenterDelegate.swift; sourceTree = "<group>"; };
 		7CD6A54D2AA0EBFD007FFF19 /* ErrorAlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		7CD6A54F2AA0EF22007FFF19 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		7CD6A5512AA0F337007FFF19 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
 		840435262A98DAB300F30D2E /* GameRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRecordModel.swift; sourceTree = "<group>"; };
 		8486E42D2A93B871001B77E8 /* ResultAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAlertModel.swift; sourceTree = "<group>"; };
 		8486E42F2A93B96E001B77E8 /* ResultAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAlertPresenter.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 				8486E42D2A93B871001B77E8 /* ResultAlertModel.swift */,
 				7CD6A5472AA0EADD007FFF19 /* ErrorAlertModel.swift */,
 				840435262A98DAB300F30D2E /* GameRecordModel.swift */,
+				7CD6A5512AA0F337007FFF19 /* MostPopularMovies.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +107,7 @@
 				84CD6EF32A8FCFE300FC6315 /* QuestionFactoryProtocol.swift */,
 				84A742332A9B8C9E00DAF376 /* StatisticServiceProtocol.swift */,
 				8486E49F2A97A55E001B77E8 /* StatisticService.swift */,
+				7CD6A54F2AA0EF22007FFF19 /* NetworkClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -268,6 +274,7 @@
 				7CB486B12A820F60009A7BF7 /* QuizStepViewModel.swift in Sources */,
 				7CD6A54E2AA0EBFD007FFF19 /* ErrorAlertPresenterProtocol.swift in Sources */,
 				8486E4342A93BA44001B77E8 /* ResultAlertPresenterProtocol.swift in Sources */,
+				7CD6A5502AA0EF22007FFF19 /* NetworkClient.swift in Sources */,
 				84A742342A9B8C9E00DAF376 /* StatisticServiceProtocol.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
@@ -277,6 +284,7 @@
 				7CD6A54A2AA0EB42007FFF19 /* ErrorAlertPresenter.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 				8486E4A02A97A55E001B77E8 /* StatisticService.swift in Sources */,
+				7CD6A5522AA0F337007FFF19 /* MostPopularMovies.swift in Sources */,
 				7CD6A5482AA0EADD007FFF19 /* ErrorAlertModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
