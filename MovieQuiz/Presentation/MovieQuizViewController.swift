@@ -27,9 +27,13 @@ final class MovieQuizViewController: UIViewController{
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionFactory = QuestionFactory(delegate: self)
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         
-        questionFactory?.requestNextQuestion()
+        questionFactory?.loadData()
+        
+        showLoadingIndicator()
+//
+//        questionFactory?.requestNextQuestion()
         
         alertPresenter = ResultAlertPresenter(delegate: self)
         
@@ -61,19 +65,18 @@ final class MovieQuizViewController: UIViewController{
     }
     
     private func showNetworkError(message: String) {
-//        hideLoadingIndicator()
+        //        hideLoadingIndicator()
         let errorModel = ErrorAlertModel(
             title: "Ошибка",
             message: message,
             buttonText: "Попробовать еще раз")
         {
             self.currentQuestionIndex = 0
-            self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
         
         errorPresenter?.errorShowAlert(errorMessages: errorModel, on: self)
- 
+        
     }
     
     private func show(resultMessages: ResultAlertModel) {
@@ -128,7 +131,7 @@ final class MovieQuizViewController: UIViewController{
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
-            image: UIImage(named: "\(model.imageOfFilm)") ?? UIImage(),
+            image: UIImage(data: model.imageOfFilm) ?? UIImage(),
             question: model.questionText,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
         return questionStep
@@ -164,12 +167,20 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
             self?.show(quiz: viewModel)
         }
     }
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        questionFactory?.requestNextQuestion()
+    }
 }
 
 // MARK: - AlertPresenterDelegate
 extension MovieQuizViewController: ResultAlertPresenterDelegate, ErrorAlertPresenterDelegate  {
     func errorShowAlert() {
-        //????
+        self.correctAnswers = 0
     }
     
     func finishShowAlert() {
