@@ -7,11 +7,12 @@
 
 import Foundation
 
+enum NetworkError: Error {
+    case codeError
+    case invalidURL
+}
+
 struct NetworkClient {
-    
-    private enum NetworkError: Error {
-        case codeError
-    }
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
         let request = URLRequest(url: url)

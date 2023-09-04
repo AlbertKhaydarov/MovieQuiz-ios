@@ -17,7 +17,7 @@ final class MovieQuizViewController: UIViewController{
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionsAmount: Int = 10
+    private let questionsAmount: Int = 2
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: ResultAlertPresenterProtocol?
@@ -28,6 +28,8 @@ final class MovieQuizViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        
+        activityIndicator.hidesWhenStopped = true
         
         questionFactory?.loadData()
         
@@ -58,11 +60,9 @@ final class MovieQuizViewController: UIViewController{
     // MARK: - Private functions
     
     private func showLoadingIndicator() {
-        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
     }
     
@@ -71,7 +71,8 @@ final class MovieQuizViewController: UIViewController{
             title: "Ошибка",
             message: message,
             buttonText: "Попробовать еще раз")
-        {
+        {  [weak self] in
+            guard let self = self else {return}
             self.hideLoadingIndicator()
         }
         errorPresenter?.errorShowAlert(errorMessages: errorModel, on: self)
@@ -99,7 +100,8 @@ final class MovieQuizViewController: UIViewController{
                 title: "Этот раунд окончен!",
                 message: text,
                 buttonText: "Сыграть еще раз")
-            {
+            { [weak self] in
+                guard let self = self else {return}
                 self.questionFactory?.requestNextQuestion()
             }
             show(resultMessages: alertModel)

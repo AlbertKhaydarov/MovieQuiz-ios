@@ -17,15 +17,19 @@ struct MoviesLoader: MoviesLoading {
     private let networkClient = NetworkClient()
     
     // MARK: - URL
-    private var mostPopularMoviesUrl: URL {
-        guard let url = URL(string: "https://imdb-api.com/en/API/Top250Movies/k_zcuw1ytf") else {
-            preconditionFailure("Unable to construct mostPopularMoviesUrl")
-        }
-        return url
+    private var mostPopularMoviesUrl: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "imdb-api.com"
+        components.path = "/en/API/Top250Movies/k_zcuw1ytf"
+        return components.url
     }
     
     func loadMovies(handler: @escaping (Result<MostPopularMovies, Error>) -> Void) {
-        networkClient.fetch(url: mostPopularMoviesUrl) { result in
+        
+        guard let url = mostPopularMoviesUrl else {return handler(.failure(NetworkError.invalidURL))}
+        
+        networkClient.fetch(url: url) { result in
             switch result {
             case .success(let data):
                 do {
