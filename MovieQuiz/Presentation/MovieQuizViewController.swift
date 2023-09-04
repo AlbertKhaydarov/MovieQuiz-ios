@@ -32,8 +32,6 @@ final class MovieQuizViewController: UIViewController{
         questionFactory?.loadData()
         
         showLoadingIndicator()
-//
-//        questionFactory?.requestNextQuestion()
         
         alertPresenter = ResultAlertPresenter(delegate: self)
         
@@ -63,20 +61,20 @@ final class MovieQuizViewController: UIViewController{
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
+    private func hideLoadingIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
     
     private func showNetworkError(message: String) {
-        //        hideLoadingIndicator()
         let errorModel = ErrorAlertModel(
             title: "Ошибка",
             message: message,
             buttonText: "Попробовать еще раз")
         {
-            self.currentQuestionIndex = 0
-            self.questionFactory?.requestNextQuestion()
+            self.hideLoadingIndicator()
         }
-        
         errorPresenter?.errorShowAlert(errorMessages: errorModel, on: self)
-        
     }
     
     private func show(resultMessages: ResultAlertModel) {
@@ -167,12 +165,13 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
             self?.show(quiz: viewModel)
         }
     }
+    
     func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+        showNetworkError(message: error.localizedDescription)
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        hideLoadingIndicator()
         questionFactory?.requestNextQuestion()
     }
 }
@@ -180,12 +179,11 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
 // MARK: - AlertPresenterDelegate
 extension MovieQuizViewController: ResultAlertPresenterDelegate, ErrorAlertPresenterDelegate  {
     func errorShowAlert() {
-        self.correctAnswers = 0
+        self.showLoadingIndicator()
+        questionFactory?.loadData()
     }
     
     func finishShowAlert() {
         self.correctAnswers = 0
     }
-    
-    
 }
