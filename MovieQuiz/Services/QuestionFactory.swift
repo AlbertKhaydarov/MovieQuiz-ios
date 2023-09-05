@@ -9,6 +9,12 @@ import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
   
+    private enum ComparisonSign: String {
+        case more = "больше"
+        case less = "меньше"
+    }
+
+    
     private let moviesLoader: MoviesLoading
     weak private var delegate: QuestionFactoryDelegate?
     
@@ -53,9 +59,21 @@ final class QuestionFactory: QuestionFactoryProtocol {
             }
             
             let rating = Float(movie.rating) ?? 0
-            let ratingIndex = (3...7).randomElement() ?? 7
-            let text = "Рейтинг этого фильма больше чем \(ratingIndex)?"
-            let correctAnswer = rating > Float(ratingIndex)
+            let ratingIndex = (5...8).randomElement() ?? 7
+            
+            var text: String
+            let comparison = (0...1).randomElement() ?? 1
+            let correctAnswer: Bool
+            
+            if comparison == 0 {
+                text = "Рейтинг этого фильма \(ComparisonSign.less.rawValue) чем \(ratingIndex)?"
+                correctAnswer = rating < Float(ratingIndex) ? true : false
+                print(rating)
+            } else {
+                text = "Рейтинг этого фильма \(ComparisonSign.more.rawValue) чем \(ratingIndex)?"
+                correctAnswer = rating > Float(ratingIndex) ? true : false
+                print(rating)
+            }
             
             let question = QuizQuestion(imageOfFilm: imageData,
                                         questionText: text,
