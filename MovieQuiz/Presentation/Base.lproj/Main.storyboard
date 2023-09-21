@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,17 +108,24 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tYO-8a-Zb5">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <color key="color" name="YP Black"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="Vrb-BX-Bh2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="1hF-Ra-sZ4"/>
+                            <constraint firstItem="tYO-8a-Zb5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UHy-Zn-6aR"/>
+                            <constraint firstItem="tYO-8a-Zb5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="WNG-16-Rlh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vrb-BX-Bh2" secondAttribute="bottom" id="hXT-bD-PDT"/>
                             <constraint firstItem="Vrb-BX-Bh2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="o5G-NT-kpo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vrb-BX-Bh2" secondAttribute="trailing" constant="20" id="yM1-d2-fot"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="tYO-8a-Zb5" id="51i-s0-qtH"/>
                         <outlet property="counterLabel" destination="lha-PY-KSF" id="aEM-ZP-joU"/>
                         <outlet property="imageView" destination="bxa-nh-wfS" id="Vze-qm-f6O"/>
                         <outlet property="noButton" destination="qOL-rJ-1U5" id="gqI-tz-tWT"/>

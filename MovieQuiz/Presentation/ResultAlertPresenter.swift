@@ -16,14 +16,15 @@ class ResultAlertPresenter: ResultAlertPresenterProtocol {
         self.delegate = delegate
     }
     
-    func showAlert(alertMessages: ResultAlertModel, on viewController: UIViewController) {
-        let alert = UIAlertController(title: alertMessages.title,
-                                      message: alertMessages.message,
+    func showAlert(resultMessages: ResultAlertModel, on viewController: UIViewController) {
+        let alert = UIAlertController(title: resultMessages.title,
+                                      message: resultMessages.message,
                                       preferredStyle: .alert)
         
-        let action = UIAlertAction(title: alertMessages.buttonText, style: .default) { [weak self] _ in
+        let action = UIAlertAction(title: resultMessages.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}
-            alertMessages.alertButtonAction()
+            
+            resultMessages.alertButtonAction()
             self.delegate?.finishShowAlert()
         }
         
