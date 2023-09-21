@@ -31,6 +31,10 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 guard let self = self else {return}
                 switch result {
                 case .success(let mostPopularMovies):
+                    let errorMessage = mostPopularMovies.errorMessage
+                    if !errorMessage.isEmpty {
+                        self.delegate?.errorInLoadData(with: errorMessage)
+                       }
                     self.movies = mostPopularMovies.items
                     self.delegate?.didLoadDataFromServer()
                 case .failure(let error):
