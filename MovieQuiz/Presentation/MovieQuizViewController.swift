@@ -15,9 +15,9 @@ final class MovieQuizViewController: UIViewController{
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    private var currentQuestion: QuizQuestion?
     private var correctAnswers = 0
     private var questionFactory: QuestionFactoryProtocol?
-    private var currentQuestion: QuizQuestion?
     private var alertPresenter: ResultAlertPresenterProtocol?
     private var errorPresenter: ErrorAlertPresenterProtocol?
     private var statisticService: StatisticServiceProtocol?
@@ -26,6 +26,9 @@ final class MovieQuizViewController: UIViewController{
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter.viewController = self
+        
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         
         activityIndicator.hidesWhenStopped = true
@@ -45,15 +48,13 @@ final class MovieQuizViewController: UIViewController{
     
     // MARK: - Actions
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {return}
-        let qivenAnswer = true
-        showAnswerResult(isCorrect: qivenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {return}
-        let qivenAnswer = false
-        showAnswerResult(isCorrect: qivenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
     
     // MARK: - Private functions
@@ -111,7 +112,7 @@ final class MovieQuizViewController: UIViewController{
         }
     }
     
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }

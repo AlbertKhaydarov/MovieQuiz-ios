@@ -72,11 +72,9 @@ final class QuestionFactory: QuestionFactoryProtocol {
             if comparison == 0 {
                 text = "Рейтинг этого фильма \(ComparisonSign.less.rawValue) чем \(ratingIndex)?"
                 correctAnswer = rating < Float(ratingIndex) ? true : false
-                print(rating)
             } else {
                 text = "Рейтинг этого фильма \(ComparisonSign.more.rawValue) чем \(ratingIndex)?"
                 correctAnswer = rating > Float(ratingIndex) ? true : false
-                print(rating)
             }
             
             let question = QuizQuestion(imageOfFilm: imageData,
