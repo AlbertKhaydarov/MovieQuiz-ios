@@ -59,14 +59,13 @@ struct StubNetworkClient: NetworkRouting {
         """.data(using: .utf8) ?? Data()
     }
 }
+
 class MoviesLoaderTests: XCTestCase {
     func testSuccessLoading() throws {
         // Given
         let stubNetworkClient = StubNetworkClient(emulateError: false) // говорим, что не хотим эмулировать ошибку
         let loader = MoviesLoader(networkClient: stubNetworkClient)
-        
         // When
-        
         // так как функция загрузки фильмов — асинхронная, нужно ожидание
         let expectation = expectation(description: "Loading expectation")
         
@@ -101,7 +100,6 @@ class MoviesLoaderTests: XCTestCase {
                 // мы не ожидаем, что пришла ошибка; если она появится, надо будет провалить тест
                 XCTAssertNotNil(error)
                 expectation.fulfill()
-              
             }
         }
         waitForExpectations(timeout: 1)

@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class MovieQuizUITestsLaunchTests: XCTestCase {
+//final class MovieQuizUITestsLaunchTests: XCTestCase {
 
 //    override class var runsForEachTargetApplicationUIConfiguration: Bool {
 //        true
@@ -29,4 +29,4 @@ final class MovieQuizUITestsLaunchTests: XCTestCase {
 //        attachment.lifetime = .keepAlways
 //        add(attachment)
 //    }
-}
+//}

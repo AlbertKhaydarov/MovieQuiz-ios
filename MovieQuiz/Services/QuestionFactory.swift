@@ -8,12 +8,11 @@
 import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
-  
+    
     private enum ComparisonSign: String {
         case more = "больше"
         case less = "меньше"
     }
-
     
     private let moviesLoader: MoviesLoading
     weak private var delegate: QuestionFactoryDelegate?
@@ -34,7 +33,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
                     let errorMessage = mostPopularMovies.errorMessage
                     if !errorMessage.isEmpty {
                         self.delegate?.errorInLoadData(with: errorMessage)
-                       }
+                    }
                     self.movies = mostPopularMovies.items
                     self.delegate?.didLoadDataFromServer()
                 case .failure(let error):

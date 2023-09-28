@@ -10,17 +10,17 @@ import UIKit
 final class MovieQuizPresenter {
     
     private var currentQuestionIndex: Int = 0
-    private let questionsAmount: Int = 2
+    private let questionsAmount: Int = 10
     private var correctAnswers: Int = 0
     private var currentQuestion: QuizQuestion?
     
-    private weak var viewController: MovieQuizViewController?
+    private weak var viewController: MovieQuizViewControllerProtocol?
     private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticServiceProtocol!
     var alertPresenter: ResultAlertPresenterProtocol?
     var errorPresenter: ErrorAlertPresenterProtocol?
     
-    init(viewController: MovieQuizViewController) {
+    init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
         
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
@@ -46,7 +46,7 @@ final class MovieQuizPresenter {
         currentQuestionIndex += 1
     }
     
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+    func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
             image: UIImage(data: model.imageOfFilm) ?? UIImage(),
             question: model.questionText,
@@ -118,6 +118,7 @@ final class MovieQuizPresenter {
         }
     }
 }
+
 // MARK: - QuestionFactoryDelegate
 extension MovieQuizPresenter: QuestionFactoryDelegate {
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -146,7 +147,7 @@ extension MovieQuizPresenter: QuestionFactoryDelegate {
 }
 
 // MARK: - AlertPresenterDelegate, ErrorAlertPresenterDelegate
-extension MovieQuizPresenter: ResultAlertPresenterDelegate, ErrorAlertPresenterDelegate  {
+extension MovieQuizPresenter: ResultAlertPresenterDelegate, ErrorAlertPresenterDelegate {
     func errorShowAlert() {
         viewController?.showLoadingIndicator()
         restartGame()

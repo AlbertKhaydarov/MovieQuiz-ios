@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class MovieQuizViewController: UIViewController{
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -9,11 +9,11 @@ final class MovieQuizViewController: UIViewController{
     
     @IBOutlet private weak var counterLabel: UILabel!
     
-    @IBOutlet weak var noButton: UIButton!
+    @IBOutlet private weak var noButton: UIButton!
     
-    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private var presenter: MovieQuizPresenter!
     
