@@ -29,11 +29,11 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     // MARK: - Actions
-    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+    @IBAction func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
     }
     
-    @IBAction private func noButtonClicked(_ sender: UIButton) {
+    @IBAction func noButtonClicked(_ sender: UIButton) {
         presenter.noButtonClicked()
     }
     
