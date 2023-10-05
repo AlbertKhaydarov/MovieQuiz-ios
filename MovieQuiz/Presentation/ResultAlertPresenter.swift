@@ -20,7 +20,7 @@ class ResultAlertPresenter: ResultAlertPresenterProtocol {
         let alert = UIAlertController(title: resultMessages.title,
                                       message: resultMessages.message,
                                       preferredStyle: .alert)
-        
+        alert.view.accessibilityIdentifier = "AlertResult"
         let action = UIAlertAction(title: resultMessages.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}
             
